@@ -10,6 +10,15 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
+<div class="div-btn">
+   
+    <form action="https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/72200407/" method="get">
+   <input type="number" name="nim" placeholder="NIM">
+   <button type="submit" class="btn btn-primary">Cari</button>  
+</form>
+    
+</div>
+
 @if (mhs == null)
 {
     <p><em>Loading...</em></p>
@@ -25,6 +34,7 @@ else
                 <th>NAMA</th>
                 <th>NIM</th>
                 <th>ALAMAT</th>
+                <th>AKSI</th>
             </tr>
         </thead>
          @foreach (var mh in mhs)
@@ -35,6 +45,7 @@ else
                     <td>@mh.nama</td>
                     <td>@mh.nim</td>
                     <td>@mh.alamat</td>
+                    <td>test</td>
                 </tr>
             
         </tbody>
@@ -43,13 +54,18 @@ else
        
     </table>
 }
+<div class="div-btn">
+ <a href="/mahasiswa/add">
+    <button type="button" class="btn btn-primary">Add Mahasiswa</button>
+    </a>
+    </div>
 
 @code {
     private Mahasiswa[]? mhs;
 
     protected override async Task OnInitializedAsync()
     {
-        mhs = await Http.GetFromJsonAsync<Mahasiswa[]>("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/72170177");
+        mhs = await Http.GetFromJsonAsync<Mahasiswa[]>("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/72200407");
     }
 
 public class Mahasiswa
