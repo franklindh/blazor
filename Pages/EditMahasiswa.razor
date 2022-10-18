@@ -1,0 +1,83 @@
+@page "/mahasiswa/edit"
+
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+<PageTitle>Edit Mahasiswa</PageTitle>
+
+@using System.Net.Http
+@using System.Net.Http.Json
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject NavigationManager UriHelper
+
+
+   
+   
+     <h3 class="h3-add">Ubah Data</h3>
+     <div class="div-btn">
+    <a href="mahasiswa">
+      <button type="button" class="btn btn-primary">Back</button>
+      </a>
+      </div>
+ 
+    @foreach (var mh in mhs)
+    {
+      <form action ="https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/update?nim=@mh.nim&nim_progmob=72200407" method="post">
+      
+
+        <div class="form-group">
+          <input type="number" name="nim" class="form-control disabled" placeholder="@mh.nim (nim tidak diubah)">
+        </div>
+          <div class="form-group">
+          <input type="text" name="nama" class="form-control" value="@mh.nama">
+        </div>
+        <div class="form-group">
+          <input type="text" name="alamat" class="form-control" value="@mh.alamat">
+        </div>
+          <div class="form-group">
+          <input type="email" name="email" class="form-control" value="@mh.email">
+        </div>
+        <button type="submit" class="btn btn-primary mb-4">Ubah</button>  
+</form>
+      
+    }
+    
+
+
+@code {
+    protected List<Mahasiswa> searchUserData = new();
+    protected override async Task OnInitializedAsync(){
+        mhs = await Http.GetFromJsonAsync<List<Mahasiswa>>("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/72200407");
+        searchUserData = mhs;
+    }
+
+    protected List<Mahasiswa> mhs = new();
+    protected string SearchString { get; set; } = string.Empty;
+    protected void CariData(){
+        if (!string.IsNullOrEmpty(SearchString)){
+            mhs = searchUserData
+                .Where(x => x.nim.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1)
+                .ToList();
+        }else{
+            mhs = searchUserData;
+        }
+    }
+    protected void Refresh(){
+        mhs = searchUserData;
+    }
+
+
+public class Mahasiswa
+{
+public int id { get; set; }
+public string nama { get; set; }
+
+public string nim { get; set; }
+
+public string alamat { get; set; }
+
+public string email { get; set; }
+
+public string foto { get; set; }
+} 
+
+}

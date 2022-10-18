@@ -73,6 +73,12 @@ a,
   margin-bottom: 10px;
 }
 
+.div-btn-2 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 .form-group {
   margin-bottom: 30px;
 }
