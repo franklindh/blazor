@@ -91,3 +91,7 @@ a,
   color: white;
   background-color: #fbbf24;
 }
+.div-center {
+  display: flex;
+  justify-content: center;
+}

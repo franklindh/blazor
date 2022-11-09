@@ -1,83 +1,136 @@
-@page "/mahasiswa/edit"
 
-@inject HttpClient Http
-@inject NavigationManager UriHelper
-<PageTitle>Edit Mahasiswa</PageTitle>
 
+@page "/mahasiswa/edit/{nim_progmob?}/{id?}/{nim?}"
 @using System.Net.Http
 @using System.Net.Http.Json
-@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
-@inject NavigationManager UriHelper
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
 
+<PageTitle>Edit</PageTitle>
 
-   
-   
-     <h3 class="h3-add">Ubah Data</h3>
-     <div class="div-btn">
-    <a href="mahasiswa">
-      <button type="button" class="btn btn-primary">Back</button>
-      </a>
-      </div>
- 
-    @foreach (var mh in mhs)
-    {
-      <form action ="https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/update?nim=@mh.nim&nim_progmob=72200407" method="post">
-      
+<h1>Edit</h1>
 
-        <div class="form-group">
-          <input type="number" name="nim" class="form-control disabled" placeholder="@mh.nim (nim tidak diubah)">
-        </div>
-          <div class="form-group">
-          <input type="text" name="nama" class="form-control" value="@mh.nama">
-        </div>
-        <div class="form-group">
-          <input type="text" name="alamat" class="form-control" value="@mh.alamat">
-        </div>
-          <div class="form-group">
-          <input type="email" name="email" class="form-control" value="@mh.email">
-        </div>
-        <button type="submit" class="btn btn-primary mb-4">Ubah</button>  
-</form>
-      
-    }
-    
+<p>This component demonstrates fetching data Mahasiswa from the server.</p>
 
+@if (mhs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <EditForm Model="@mhs" OnValidSubmit="@UpdateMhs">
+         <DataAnnotationsValidator />
+
+        <div class="form-group row">
+            <label for="nama" class="col-sm-2 col-form-label">
+                Nama
+            </label>
+            <div class="col-sm-10">
+                <InputText id="nama" class="form-control" placeholder="Nama"
+                        @bind-Value="mhs.nama" />
+                          <ValidationMessage For="@(() => mhs.nama)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="nim" class="col-sm-2 col-form-label">
+                Nim
+            </label>
+            <div class="col-sm-10">
+                <InputText id="nim" class="form-control" placeholder="NIM"
+                        @bind-Value="mhs.nim" />
+                         <ValidationMessage For="@(() => mhs.nim)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="alamat" class="col-sm-2 col-form-label">
+                Alamat
+            </label>
+            <div class="col-sm-10">
+                <InputTextArea id="alamat" class="form-control" placeholder="Alamat"
+                        @bind-Value="mhs.alamat" />
+                        <ValidationMessage For="@(() => mhs.alamat)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">
+                Email
+            </label>
+            <div class="col-sm-10">
+                <InputText id="email" class="form-control" placeholder="Email"
+                        @bind-Value="mhs.email" />
+                         <ValidationMessage For="@(() => mhs.email)" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="foto" class="col-sm-2 col-form-label">
+                Foto
+            </label>
+            <div class="col-sm-10">
+                <InputText id="foto" class="form-control" placeholder="Foto"
+                        @bind-Value="mhs.foto" />
+                         <ValidationMessage For="@(() => mhs.foto)" />
+            </div>
+        </div>
+        <div class="container div-center">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+       
+        </div>
+    </EditForm>
+}
 
 @code {
-    protected List<Mahasiswa> searchUserData = new();
-    protected override async Task OnInitializedAsync(){
-        mhs = await Http.GetFromJsonAsync<List<Mahasiswa>>("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/72200407");
-        searchUserData = mhs;
+    [Parameter]
+    public string nim_progmob { get; set; }
+
+    [Parameter]
+    public string nim { get; set; }
+    
+    [Parameter]
+    public string id { get; set; }
+    private Mahasiswa mhs = new();
+    private Mahasiswa[]? lmhs;
+
+    public async Task UpdateMhs(){
+        mhs.nim_progmob = "72200407";
+        await Http.PostAsJsonAsync("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/update", mhs);
+    }
+    public async Task DeleteMhs(){
+        mhs.nim_progmob = nim_progmob;
+        mhs.id = Int32.Parse(id);
+        await Http.PostAsJsonAsync("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/delete", mhs);
     }
 
-    protected List<Mahasiswa> mhs = new();
-    protected string SearchString { get; set; } = string.Empty;
-    protected void CariData(){
-        if (!string.IsNullOrEmpty(SearchString)){
-            mhs = searchUserData
-                .Where(x => x.nim.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1)
-                .ToList();
-        }else{
-            mhs = searchUserData;
+    protected override async Task OnInitializedAsync()
+    {
+        lmhs = await Http.GetFromJsonAsync<Mahasiswa[]>("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/"+nim_progmob+"/"+nim);
+        foreach(var mh in lmhs){
+            if(mh.id == Int32.Parse(id)){
+                mhs = mh;
+            }
         }
     }
-    protected void Refresh(){
-        mhs = searchUserData;
+
+    public class Mahasiswa
+    {
+        public int? id { get; set; }
+
+        [Required]
+        [StringLength(10, ErrorMessage = "Name is too long.")]
+        public string nama { get; set; }
+
+        [Required]
+        public string nim { get; set; }
+
+        [Required]
+        public string alamat { get; set; }
+
+        [Required]
+        [RegularExpression(@"^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$", ErrorMessage = "Invalid email address.")]
+        public string email { get; set; }
+
+        [Required]
+        public string foto { get; set; }
+
+        public string nim_progmob { get; set; }
     }
-
-
-public class Mahasiswa
-{
-public int id { get; set; }
-public string nama { get; set; }
-
-public string nim { get; set; }
-
-public string alamat { get; set; }
-
-public string email { get; set; }
-
-public string foto { get; set; }
-} 
-
 }

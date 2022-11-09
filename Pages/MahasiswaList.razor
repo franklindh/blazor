@@ -1,28 +1,14 @@
 @page "/mahasiswa"
-@inject HttpClient Http
-@inject NavigationManager UriHelper
-<PageTitle>List Mahasiswa</PageTitle>
-
 @using System.Net.Http
 @using System.Net.Http.Json
-@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject HttpClient Http
 @inject NavigationManager UriHelper
 
+<PageTitle>List Mahasiswa</PageTitle>
 
+<h1>Mahasiswa SI UKDW</h1>
 
-<h1>MAHASISWA SI UKDW</h1>
-<h6>Data dari nim progmob = 72200407</h6>
-
-<div class="div-btn">
-   <input type="number" name="nim" placeholder="NIM"  @bind="SearchString">
-   <button type="submit" class="btn btn-primary" @onclick="CariData">Cari</button>  
-</div>
-
-<div class="div-btn-2">
-   <button type="submit" class="btn btn-primary me-4" @onclick="Refresh">Refresh</button>  
-   <a href="/mahasiswa/edit" class="btn btn-warning ">Edit</a>
-</div>
-
+<p>This component demonstrates fetching data Mahasiswa from the server.</p>
 
 @if (mhs == null)
 {
@@ -30,84 +16,59 @@
 }
 else
 {
-
+    <NavLink class="btn btn-primary" href="/mahasiswa/add">Tambah</NavLink>
     <table class="table">
         <thead>
-           
             <tr>
                 <th>ID</th>
                 <th>NAMA</th>
                 <th>NIM</th>
                 <th>ALAMAT</th>
+                 <th>EMAIL</th>
                 <th>AKSI</th>
             </tr>
         </thead>
-         @foreach (var mh in mhs)
+        <tbody>
+            @foreach (var mh in mhs)
             {
-                 <tbody>  
-                    <tr>
+                <tr>
                     <td>@mh.id</td>
                     <td>@mh.nama</td>
                     <td>@mh.nim</td>
                     <td>@mh.alamat</td>
-                        <td>                         
-                           
-                           <Button class="btn btn-danger" @onclick="@(()=> Delete(@mh.nim))">Delete</Button>
-                        </td>
-                    </tr>
-                 </tbody>
-                
+                     <td>@mh.email</td>
+                    <td>
+                        <NavLink class="btn btn-primary" href='@("/mahasiswa/edit/72200407/"+mh.id+"/"+mh.nim)'>Edit & Hapus</NavLink>
+                       
+                    </td>
+                </tr>
             }
-       
+        </tbody>
     </table>
 }
-<div class="div-btn">
- <a href="/mahasiswa/add">
-    <button type="button" class="btn btn-primary">Add Mahasiswa</button>
-    </a>
-    </div>
 
 @code {
-    
-    protected List<Mahasiswa> searchUserData = new();
-    protected override async Task OnInitializedAsync(){
-        mhs = await Http.GetFromJsonAsync<List<Mahasiswa>>("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/72200407");
-        searchUserData = mhs;
+    private Mahasiswa[]? mhs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        mhs = await Http.GetFromJsonAsync<Mahasiswa[]>("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/72200407");
     }
 
-    protected List<Mahasiswa> mhs = new();
-    protected string SearchString { get; set; } = string.Empty;
-    protected void CariData(){
-        if (!string.IsNullOrEmpty(SearchString)){
-            mhs = searchUserData
-                .Where(x => x.nim.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1)
-                .ToList();
-        }else{
-            mhs = searchUserData;
-        }
+    public class Mahasiswa
+    {
+        public int id { get; set; }
+
+        public string nama { get; set; }
+
+        public string nim { get; set; }
+
+        public string nim_progmob { get; set; }
+
+        public string alamat { get; set; }
+
+        public string email { get; set; }
+
+        public string foto { get; set; }
     }
-    protected void Refresh(){
-        mhs = searchUserData;
-    }
-
-    protected void Delete(string nim){
-        var id = nim;
-        var result = Http.DeleteAsync("https://kpsi.fti.ukdw.ac.id/api/progmob/mhs/delete?72200407/"+id);
-        UriHelper.NavigateTo("/mahasiswa");         
-    }
-
-public class Mahasiswa
-{
-public int id { get; set; }
-public string nama { get; set; }
-
-public string nim { get; set; }
-
-public string alamat { get; set; }
-
-public string email { get; set; }
-
-public string foto { get; set; }
-} 
-
 }
