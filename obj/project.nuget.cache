@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7AzyL2YOlECRMD0KeJcKq7rHDCB2MagApLt6+yvpIav9DvgqxF5Ta3XPKP7Q8GA7ehU9VZmd9+uH4/zMVQxsuQ==",
+  "dgSpecHash": "PmxLhUVSTrimY8M8zhbWEgbi9NRksOsxZS68V4KQUn4RgT5BtFKVc9xC6AUHHJE1pmzllYVLFJWh+z87NSRcPg==",
   "success": true,
   "projectFilePath": "D:\\blazor\\blazor.csproj",
   "expectedPackageFiles": [
@@ -18,14 +18,16 @@
     "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\6.0.0\\microsoft.extensions.configuration.fileextensions.6.0.0.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.configuration.json\\6.0.0\\microsoft.extensions.configuration.json.6.0.0.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.1\\microsoft.extensions.dependencyinjection.6.0.1.nupkg.sha512",
-    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\6.0.0\\microsoft.extensions.fileproviders.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\6.0.0\\microsoft.extensions.fileproviders.physical.6.0.0.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\6.0.0\\microsoft.extensions.filesystemglobbing.6.0.0.nupkg.sha512",
+    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.localization\\7.0.1\\microsoft.extensions.localization.7.0.1.nupkg.sha512",
+    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.localization.abstractions\\7.0.1\\microsoft.extensions.localization.abstractions.7.0.1.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.logging\\6.0.0\\microsoft.extensions.logging.6.0.0.nupkg.sha512",
-    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.2\\microsoft.extensions.logging.abstractions.6.0.2.nupkg.sha512",
-    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
-    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
+    "C:\\Users\\email\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.jsinterop\\6.0.10\\microsoft.jsinterop.6.0.10.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\microsoft.jsinterop.webassembly\\6.0.2\\microsoft.jsinterop.webassembly.6.0.2.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\mudblazor\\6.1.2\\mudblazor.6.1.2.nupkg.sha512",
@@ -33,8 +35,7 @@
     "C:\\Users\\email\\.nuget\\packages\\system.io.pipelines\\6.0.3\\system.io.pipelines.6.0.3.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\email\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
-    "C:\\Users\\email\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512",
-    "C:\\Users\\email\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\6.0.2\\microsoft.netcore.app.runtime.mono.browser-wasm.6.0.2.nupkg.sha512"
+    "C:\\Users\\email\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

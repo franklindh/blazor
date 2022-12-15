@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[6.0.2, )"
             },
+            "Microsoft.Extensions.Localization": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
             "MudBlazor": {
               "target": "Package",
               "version": "[6.1.2, )"
@@ -68,12 +72,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Runtime.Mono.browser-wasm",
-              "version": "[6.0.2, 6.0.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
